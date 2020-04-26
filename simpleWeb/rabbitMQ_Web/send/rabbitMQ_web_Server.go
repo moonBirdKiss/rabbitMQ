@@ -9,6 +9,10 @@ import (
 func main() {
 	app := iris.New()
 
+	app.Get("/test", func(ctx iris.Context) {
+		ctx.WriteString("server work properly")
+	})
+
 	// sender
 	app.Post("/send", func(ctx iris.Context){
 		queueName := ctx.PostValue("name")
