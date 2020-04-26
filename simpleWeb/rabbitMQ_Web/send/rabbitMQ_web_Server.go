@@ -9,6 +9,10 @@ import (
 func main() {
 	app := iris.New()
 
+	// amqp info
+	amqp_url := "amqp://admin:admin@192.168.66.90:5672/"
+
+
 	log.Println("1.0 server start to work")
 
 	app.Get("/test", func(ctx iris.Context) {
@@ -22,7 +26,7 @@ func main() {
 
 
 		// send msg to rabbitMQ
-		conn, err := amqp.Dial("amqp://admin:admin@192.168.66.90:5672/")
+		conn, err := amqp.Dial(amqp_url)
 		failOnError(err, "Failed to connect to RabbitMQ")
 		defer conn.Close()
 
@@ -76,7 +80,7 @@ func main() {
 			// read data from queue
 			// and this func will exe forever
 			go func() {
-				conn, err := amqp.Dial("amqp://admin:admin@192.168.66.90:5672/")
+				conn, err := amqp.Dial(amqp_url)
 				failOnError(err, "Failed to connect to RabbitMQ")
 				defer conn.Close()
 
