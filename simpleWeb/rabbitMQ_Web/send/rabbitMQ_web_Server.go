@@ -9,6 +9,8 @@ import (
 func main() {
 	app := iris.New()
 
+	log.Println("1.0 server start to work")
+
 	app.Get("/test", func(ctx iris.Context) {
 		ctx.WriteString("server work properly")
 	})
